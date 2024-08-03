@@ -1,9 +1,9 @@
 document.getElementById('apiForm').addEventListener('submit', async function(e) {
     e.preventDefault(); // Prevent the default form submission behavior
     const question = document.getElementById('question').value; // Get the value from the input field
-    
+
     try {
-        const response = await fetch('https://app.wordware.ai/api/released-app/eal115da-a83d-429e-9d13-0e996e4f05e4/run', {
+        const response = await fetch('https://corsproxy.io/?https://app.wordware.ai/api/released-app/eal115da-a83d-429e-9d13-0e996e4f05e4/run', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -11,7 +11,7 @@ document.getElementById('apiForm').addEventListener('submit', async function(e) 
             },
             body: JSON.stringify({
                 inputs: { question: question }, // Send the question in the required format
-                version: "1.0"
+                version: "^1.0"
             })
         });
 
@@ -20,9 +20,9 @@ document.getElementById('apiForm').addEventListener('submit', async function(e) 
         }
 
         const data = await response.json(); // Parse the JSON response
-        document.getElementById('response').innerText = JSON.stringify(data, null, 2); // Display the response in a formatted way
+        document.getElementById('response').innerText = JSON.stringify(data, null, 2); // Display the data
     } catch (error) {
         console.error('Error:', error); // Log any errors that occur
-        document.getElementById('response').innerText = 'An error occurred: ' + error.message; // Display a user-friendly error message
+        document.getElementById('response').innerText = 'An error occurred: ' + error.message; // Display the error message
     }
 });
