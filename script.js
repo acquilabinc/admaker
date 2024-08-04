@@ -3,7 +3,7 @@ document.getElementById('apiForm').addEventListener('submit', async function(e) 
     const question = document.getElementById('question').value; // Get the value from the input field
 
     try {
-        const response = await fetch('http://146.190.148.216:3000', {
+        const response = await fetch('https://146.190.148.216:3000', { // Changed to https
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
