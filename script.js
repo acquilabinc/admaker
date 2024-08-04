@@ -3,15 +3,23 @@ document.getElementById('apiForm').addEventListener('submit', async function(e) 
     const question = document.getElementById('question').value; // Get the value from the input field
 
     try {
-        const response = await fetch('https://corsproxy.io/?https://app.wordware.ai/api/released-app/eal115da-a83d-429e-9d13-0e996e4f05e4/run', {
+        const response = await fetch('http://146.190.148.216:3000', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ww-KgimnNP7sMcAbamrRqw4V13Co20DG8grpJpqE80OfyOdPKCCrT5HN2' // Ensure the API key is a string
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                inputs: { question: question }, // Send the question in the required format
-                version: "^1.0"
+                'url': 'https://app.wordware.ai/api/released-app/36a0de8d-8a71-4810-ac29-d03a9096f5e5/run',
+                'method': 'POST',
+                'headers': {
+                    'Authorization': 'Bearer ww-KgimnNP7sMcAbamrRqw4V13Co2ODG8grpJpqE8OOfyOdPKCCrT5HN2'
+                },
+                'data': {
+                    'inputs': {
+                        'name': question // Use the question variable here
+                    },
+                    'version': '^1.0'
+                }
             })
         });
 
@@ -20,9 +28,15 @@ document.getElementById('apiForm').addEventListener('submit', async function(e) 
         }
 
         const data = await response.json(); // Parse the JSON response
-        document.getElementById('response').innerText = JSON.stringify(data, null, 2); // Display the data
+        displayResponse(data); // Call the function to display the response
     } catch (error) {
         console.error('Error:', error); // Log any errors that occur
         document.getElementById('response').innerText = 'An error occurred: ' + error.message; // Display the error message
     }
 });
+
+function displayResponse(data) {
+    const chunks = data.map(item => item.value).filter(item => item.type === 'chunk' && item.value.trim() !== '');
+    const text = chunks.map(chunk => chunk.value).join(' ');
+    document.getElementById('response').innerText = text;
+}
