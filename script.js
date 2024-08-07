@@ -1,57 +1,44 @@
-document.getElementById('apiForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const question = document.getElementById('question').value;
-    const responseElement = document.getElementById('response');
-    responseElement.innerText = ''; // Clear previous response
+document.getElementById('apiForm').addEventListener('submit', async function (e) {
+    e.preventDefault(); // Prevent the default form submission behavior
+    const question = document.getElementById('question').value; // Get the value from the input field
 
     try {
-        const response = await fetch('https://api.tenxplus.com/', {
+        const response = await fetch('https://api.tenxplus.com/', { // Use your API URL
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                url: 'https://app.wordware.ai/api/released-app/ea1115da-a83d-429e-9d13-0e996e4f05e4/run',
+                url: 'https://app.wordware.ai/api/released-app/36a0de8d-8a71-4810-ac29-d0a3096f5e5/run', // Use your API endpoint
                 method: 'POST',
                 headers: {
-                    'Authorization': 'Bearer ww-12Tj2U7B3kSS3lPghrmYR47L25A7CaPOxfo7ZwwRN8pu76z0eUa1Gw'
+                    'Authorization': 'Bearer w-KgimnNP7sMcAbamrRqv4V13Co20D6BgrpJpqE80OfydPKCCrT5HN2', // Use your API key
+                    'Content-Type': 'application/json'
                 },
                 data: {
                     inputs: {
-                        name: question
+                        name: question // Use the question variable here
                     },
-                    version: '1.0'
+                    version: '^1.0'
                 }
             })
         });
 
-        if (!response.ok) {
+        if (!response.ok) { // Check if the response is not okay
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder();
+        const data = await response.json(); // Parse the JSON response
+        displayResponse(data); // Call the function to display the response
 
-        while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-            
-            const chunk = decoder.decode(value, { stream: true });
-            try {
-                const parsedChunk = JSON.parse(chunk);
-                if (Array.isArray(parsedChunk)) {
-                    parsedChunk.forEach(item => {
-                        if (item.type === 'chunk' && item.value.trim() !== '') {
-                            responseElement.innerText += item.value + ' ';
-                        }
-                    });
-                }
-            } catch (parseError) {
-                console.error('Error parsing chunk:', parseError);
-            }
-        }
     } catch (error) {
-        console.error('Error:', error);
-        document.getElementById('response').innerText = 'An error occurred: ' + error.message;
+        console.error('Error:', error); // Log any errors that occur
+        document.getElementById('response').innerText = `An error occurred: ${error.message}`; // Display the error message
     }
 });
+
+function displayResponse(data) {
+    const chunks = data.map(item => item.value).filter(item => item.type === 'chunk' && item.value.trim() !== '');
+    const text = chunks.map(chunk => chunk.value).join(' ');
+    document.getElementById('response').innerText = text;
+}
