@@ -1,6 +1,8 @@
 document.getElementById('apiForm').addEventListener('submit', async function(e) {
-    e.preventDefault(); // Prevent the default form submission behavior
-    const question = document.getElementById('question').value; // Get the value from the input field
+    e.preventDefault();
+    const question = document.getElementById('question').value;
+    const responseElement = document.getElementById('response');
+    responseElement.innerText = ''; // Clear previous response
 
     try {
         const response = await fetch('https://api.tenxplus.com/', {
@@ -16,28 +18,40 @@ document.getElementById('apiForm').addEventListener('submit', async function(e) 
                 },
                 data: {
                     inputs: {
-                        name: question // Use the question variable here
+                        name: question
                     },
                     version: '1.0'
                 }
             })
         });
 
-        if (!response.ok) { // Check if the response is not okay
+        if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const data = await response.json(); // Parse the JSON response
-        displayResponse(data); // Call the function to display the response
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
 
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            
+            const chunk = decoder.decode(value, { stream: true });
+            try {
+                const parsedChunk = JSON.parse(chunk);
+                if (Array.isArray(parsedChunk)) {
+                    parsedChunk.forEach(item => {
+                        if (item.type === 'chunk' && item.value.trim() !== '') {
+                            responseElement.innerText += item.value + ' ';
+                        }
+                    });
+                }
+            } catch (parseError) {
+                console.error('Error parsing chunk:', parseError);
+            }
+        }
     } catch (error) {
-        console.error('Error:', error); // Log any errors that occur
-        document.getElementById('response').innerText = 'An error occurred: ' + error.message; // Display the error message
+        console.error('Error:', error);
+        document.getElementById('response').innerText = 'An error occurred: ' + error.message;
     }
 });
-
-function displayResponse(data) {
-    const chunks = data.map(item => item.value).filter(item => item.type === 'chunk' && item.value.trim() !== '');
-    const text = chunks.map(chunk => chunk.value).join(' ');
-    document.getElementById('response').innerText = text;
-}
