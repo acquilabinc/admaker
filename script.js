@@ -11,7 +11,7 @@ document.getElementById('apiForm').addEventListener('submit', async function(e) 
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                url: 'https://app.wordware.ai/api/released-app/36a0de8d-8a71-4810-ac29-d0a3096f5e5/run',
+                url: 'https://app.wordware.ai/api/released-app/ea1115da-a83d-429e-9d13-0e996e4f05e4/run',
                 method: 'POST',
                 headers: {
                     'Authorization': 'Bearer wv-KgjmNP7sMcAbamrRqv4V13Co20D8GgrpJpqE800fyoDPKCCrT5HN2'
