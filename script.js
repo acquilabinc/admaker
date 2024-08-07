@@ -1,81 +1,42 @@
-const axios = require('axios');
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-
-const app = express();
-const port = 3000;
-
-// Use CORS middleware and specify the allowed origins
-const allowedOrigins = ['http://localhost:8000', 'https://tenxplus.com'];
-
-app.use(cors({
-    origin: function (origin, callback) {
-        // allow requests with no origin (like mobile apps or curl requests)
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) === -1) {
-            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-            return callback(new Error(msg), false);
-        }
-        return callback(null, true);
-    }
-}));
-
-// Use body-parser middleware to parse JSON requests
-app.use(bodyParser.json());
-
-// Log all incoming requests
-app.use((req, res, next) => {
-    console.log(`${req.method} request for '${req.url}'`);
-    next();
-});
-
-// Handle preflight requests
-app.options('*', (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.status(200).end();
-});
-
-// Handle POST requests to the root URL
-app.post('/', async (req, res) => {
-    // Log the incoming request body for debugging
-    console.log('Incoming request body:', req.body);
-
-    const { url, method, headers, data } = req.body;
-
-    if (!url) {
-        res.status(400).json({ error: 'URL is required' });
-        return;
-    }
+document.getElementById('apiForm').addEventListener('submit', async function(e) {
+    e.preventDefault(); // Prevent the default form submission behavior
+    const question = document.getElementById('question').value; // Get the value from the input field
 
     try {
-        const response = await axios({
-            url,
-            method: method || 'GET',
-            headers: headers || {},
-            data: data || null,
-            responseType: 'stream',
+        const response = await fetch('https://api.tenxplus.com', { // Use your subdomain
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'url': 'https://app.wordware.ai/api/released-app/36a0de8d-8a71-4810-ac29-d0a3096f5e5/run',
+                'method': 'POST',
+                'headers': {
+                    'Authorization': 'Bearer ww-KgjmnNP7sMcAbamrRqv4V13Co20DG8grpJpqE80Ofy0dPKCCrT5HN2'
+                },
+                'data': {
+                    'inputs': {
+                        'name': question // Use the question variable here
+                    },
+                    'version': '^1.0'
+                }
+            })
         });
 
-        let responseData = '';
+        if (!response.ok) { // Check if the response is not okay
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
-        response.data.on('data', (chunk) => {
-            responseData += chunk.toString();
-        });
-
-        response.data.on('end', () => {
-            res.send(responseData);
-        });
-
+        const data = await response.json(); // Parse the JSON response
+        displayResponse(data); // Call the function to display the response
     } catch (error) {
-        console.error('Error processing request:', error);
-        res.status(500).json({ error: 'Internal Server Error', details: error.message });
+        console.error('Error:', error); // Log any errors that occur
+        document.getElementById('response').innerText = 'An error occurred: ' + error.message; // Display the error message
     }
 });
 
-// Start the server
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-});
+function displayResponse(data) {
+    const chunks = data.map(item => item.value).filter(item => item.type === 'chunk' && item.value.trim() !== '');
+    const text = chunks.map(chunk => chunk.value).join(' ');
+    document.getElementById('response').innerText = text;
+}
