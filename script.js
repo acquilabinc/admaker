@@ -3,16 +3,16 @@ document.getElementById('apiForm').addEventListener('submit', async function(e) 
     const question = document.getElementById('question').value; // Get the value from the input field
 
     try {
-        const response = await fetch('https://146.190.148.216:3000', { // Changed to https
+        const response = await fetch('https://api.tenxplus.com', { // Use your subdomain
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                'url': 'https://app.wordware.ai/api/released-app/36a0de8d-8a71-4810-ac29-d03a9096f5e5/run',
+                'url': 'https://app.wordware.ai/api/released-app/36a0de8d-8a71-4810-ac29-d0a3096f5e5/run',
                 'method': 'POST',
                 'headers': {
-                    'Authorization': 'Bearer ww-KgimnNP7sMcAbamrRqw4V13Co2ODG8grpJpqE8OOfyOdPKCCrT5HN2'
+                    'Authorization': 'Bearer ww-KgjmnNP7sMcAbamrRqv4V13Co20DG8grpJpqE80Ofy0dPKCCrT5HN2'
                 },
                 'data': {
                     'inputs': {
