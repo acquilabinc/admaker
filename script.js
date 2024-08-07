@@ -14,7 +14,7 @@ document.getElementById('apiForm').addEventListener('submit', async function(e) 
                 url: 'https://app.wordware.ai/api/released-app/ea1115da-a83d-429e-9d13-0e996e4f05e4/run',
                 method: 'POST',
                 headers: {
-                    'Authorization': 'Bearer wv-KgjmNP7sMcAbamrRqv4V13Co20D8GgrpJpqE800fyoDPKCCrT5HN2'
+                    'Authorization': 'Bearer ww-12Tj2U7B3kSS3lPghrmYR47L25A7CaPOxfo7ZwwRN8pu76z0eUa1Gw'
                 },
                 data: {
                     inputs: {
