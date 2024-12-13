@@ -17,14 +17,17 @@ document.getElementById('apiForm').addEventListener('submit', async function (e)
     loadingSpinner.classList.remove('hidden');
     
     try {
-        const response = await fetch('http://147.182.232.135/api/generate', {
+        const response = await fetch('https://147.182.232.135/api/generate', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Origin': 'https://tenxplus.com'
             },
             body: JSON.stringify({
                 question: question
-            })
+            }),
+            mode: 'cors'
         });
 
         if (!response.ok) {
@@ -48,4 +51,20 @@ document.getElementById('apiForm').addEventListener('submit', async function (e)
         submitBtn.disabled = false;
         loadingSpinner.classList.add('hidden');
     }
+});
+
+// Add visual feedback for form interaction
+const questionInput = document.getElementById('question');
+questionInput.addEventListener('focus', function() {
+    this.classList.add('focus');
+});
+
+questionInput.addEventListener('blur', function() {
+    this.classList.remove('focus');
+});
+
+// Clear error message when user starts typing
+questionInput.addEventListener('input', function() {
+    const errorDiv = document.getElementById('error');
+    errorDiv.classList.add('hidden');
 });
