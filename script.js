@@ -1,44 +1,41 @@
 document.getElementById('apiForm').addEventListener('submit', async function (e) {
-    e.preventDefault(); // Prevent the default form submission behavior
-    const question = document.getElementById('question').value; // Get the value from the input field
-
+    e.preventDefault();
+    const question = document.getElementById('question').value;
+    
     try {
-        const response = await fetch('https://api.tenxplus.com/', { // Use your API URL
+        // Make direct request to Wordware API
+        const response = await fetch('https://app.wordware.ai/api/released-app/ea1115da-a83d-429e-9d13-8e996e4f05e4/run', {
             method: 'POST',
             headers: {
+                'Authorization': 'Bearer $WORDWARE_API_KEY',  // Replace with your actual API key
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                url: 'https://app.wordware.ai/api/released-app/36a0de8d-8a71-4810-ac29-d0a3096f5e5/run', // Use your API endpoint
-                method: 'POST',
-                headers: {
-                    'Authorization': 'Bearer w-KgimnNP7sMcAbamrRqv4V13Co20D6BgrpJpqE80OfydPKCCrT5HN2', // Use your API key
-                    'Content-Type': 'application/json'
+                inputs: {
+                    question: question  // Using 'question' as the key per API docs
                 },
-                data: {
-                    inputs: {
-                        name: question // Use the question variable here
-                    },
-                    version: '^1.0'
-                }
+                version: "^1.0"
             })
         });
 
-        if (!response.ok) { // Check if the response is not okay
+        if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const data = await response.json(); // Parse the JSON response
-        displayResponse(data); // Call the function to display the response
-
+        const data = await response.json();
+        displayResponse(data);
     } catch (error) {
-        console.error('Error:', error); // Log any errors that occur
-        document.getElementById('response').innerText = `An error occurred: ${error.message}`; // Display the error message
+        console.error('Error:', error);
+        document.getElementById('response').innerText = `An error occurred: ${error.message}`;
     }
 });
 
 function displayResponse(data) {
-    const chunks = data.map(item => item.value).filter(item => item.type === 'chunk' && item.value.trim() !== '');
-    const text = chunks.map(chunk => chunk.value).join(' ');
-    document.getElementById('response').innerText = text;
+    // Since we don't know the exact response format from the API,
+    // you might need to adjust this based on the actual response structure
+    if (data && typeof data === 'object') {
+        document.getElementById('response').innerText = JSON.stringify(data, null, 2);
+    } else {
+        document.getElementById('response').innerText = 'Invalid response format';
+    }
 }
