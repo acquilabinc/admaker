@@ -3,20 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>👨‍🦰 Google Ads Headlines 👩</title>
+    <meta name="description" content="Generate creative Google Ads headlines using AI">
+    <title>👨‍🦰 Google Ads Headlines Generator 👩</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h1>👨‍🦰 Google Ads Headlines 👩</h1>
+        <h1>👨‍🦰 Google Ads Headlines Generator 👩</h1>
         <form id="apiForm">
-            <label for="question">What do you want to advertise?</label>
-            <input type="text" id="question" name="question" required>
-            <button type="submit">Run</button>
+            <div class="form-group">
+                <label for="question">What product or service do you want to advertise?</label>
+                <input 
+                    type="text" 
+                    id="question" 
+                    name="question" 
+                    required
+                    placeholder="e.g., Online yoga classes, Coffee subscription, Web design services"
+                    minlength="3"
+                    maxlength="200"
+                >
+            </div>
+            <div class="form-actions">
+                <button type="submit" id="submitBtn">
+                    <span class="button-text">Generate Headlines</span>
+                    <span class="loading-spinner hidden"></span>
+                </button>
+            </div>
         </form>
-        <pre id="response"></pre>
+        
+        <div class="response-container">
+            <div id="loading" class="hidden">Generating headlines...</div>
+            <div id="error" class="error hidden"></div>
+            <pre id="response"></pre>
+        </div>
     </div>
+    
     <script src="script.js"></script>
 </body>
 </html>
