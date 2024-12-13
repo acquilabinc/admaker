@@ -1,20 +1,29 @@
 document.getElementById('apiForm').addEventListener('submit', async function (e) {
     e.preventDefault();
+    
+    // Get the form elements
     const question = document.getElementById('question').value;
+    const submitBtn = document.getElementById('submitBtn');
+    const loadingSpinner = document.querySelector('.loading-spinner');
+    const errorDiv = document.getElementById('error');
+    const responseDiv = document.getElementById('response');
+    
+    // Clear previous responses and errors
+    errorDiv.classList.add('hidden');
+    responseDiv.innerText = '';
+    
+    // Show loading state
+    submitBtn.disabled = true;
+    loadingSpinner.classList.remove('hidden');
     
     try {
-        // Make direct request to Wordware API
-        const response = await fetch('https://app.wordware.ai/api/released-app/ea1115da-a83d-429e-9d13-8e996e4f05e4/run', {
+        const response = await fetch('http://147.182.232.135/api/generate', {
             method: 'POST',
             headers: {
-                'Authorization': 'Bearer ww-CAq3IhInvrSSRneRssF0KH6w5QzOIPxFTUFU8iaicwQ8n12BaQQ3h',  // Replace with your actual API key
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                inputs: {
-                    question: question  // Using 'question' as the key per API docs
-                },
-                version: "^1.0"
+                question: question
             })
         });
 
@@ -23,19 +32,20 @@ document.getElementById('apiForm').addEventListener('submit', async function (e)
         }
 
         const data = await response.json();
-        displayResponse(data);
+        
+        // Display the response
+        if (data && typeof data === 'object') {
+            responseDiv.innerText = JSON.stringify(data, null, 2);
+        } else {
+            responseDiv.innerText = 'Invalid response format';
+        }
     } catch (error) {
         console.error('Error:', error);
-        document.getElementById('response').innerText = `An error occurred: ${error.message}`;
+        errorDiv.innerText = `An error occurred: ${error.message}`;
+        errorDiv.classList.remove('hidden');
+    } finally {
+        // Reset loading state
+        submitBtn.disabled = false;
+        loadingSpinner.classList.add('hidden');
     }
 });
-
-function displayResponse(data) {
-    // Since we don't know the exact response format from the API,
-    // you might need to adjust this based on the actual response structure
-    if (data && typeof data === 'object') {
-        document.getElementById('response').innerText = JSON.stringify(data, null, 2);
-    } else {
-        document.getElementById('response').innerText = 'Invalid response format';
-    }
-}
