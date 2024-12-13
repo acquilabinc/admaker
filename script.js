@@ -7,7 +7,7 @@ document.getElementById('apiForm').addEventListener('submit', async function (e)
         const response = await fetch('https://app.wordware.ai/api/released-app/ea1115da-a83d-429e-9d13-8e996e4f05e4/run', {
             method: 'POST',
             headers: {
-                'Authorization': 'Bearer $WORDWARE_API_KEY',  // Replace with your actual API key
+                'Authorization': 'Bearer ww-CAq3IhInvrSSRneRssF0KH6w5QzOIPxFTUFU8iaicwQ8n12BaQQ3h',  // Replace with your actual API key
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
