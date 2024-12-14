@@ -17,7 +17,7 @@ document.getElementById('apiForm').addEventListener('submit', async function (e)
     loadingSpinner.classList.remove('hidden');
     
     try {
-        const response = await fetch('http://147.182.232.135/api/generate', {
+        const response = await fetch('https://147.182.232.135/api/generate', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
