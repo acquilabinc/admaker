@@ -1,76 +1,69 @@
 document.getElementById('apiForm').addEventListener('submit', async function (e) {
     e.preventDefault();
     
-    const product = document.getElementById('product').value;
+    // Get the form elements
+    const productInput = document.getElementById('product');
+    console.log('Product input element:', productInput); // Debug log
+    
+    const product = productInput?.value;
+    console.log('Product value:', product); // Debug log
+    
     const submitBtn = document.getElementById('submitBtn');
     const loadingSpinner = document.querySelector('.loading-spinner');
     const errorDiv = document.getElementById('error');
     const responseDiv = document.getElementById('response');
     
+    // Clear previous responses and errors
     errorDiv.classList.add('hidden');
-    responseDiv.classList.add('hidden');
+    responseDiv.innerText = '';
+    
+    // Show loading state
     submitBtn.disabled = true;
     loadingSpinner.classList.remove('hidden');
     
     try {
+        console.log('Making request with product:', product); // Debug log
+        
         const response = await fetch('https://api.tenxplus.com/api/generate', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
             body: JSON.stringify({
                 product: product
             })
         });
 
+        console.log('Response status:', response.status); // Debug log
+
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const data = await response.json();
+        console.log('Response data:', data); // Debug log
         
-        // Display formatted response
-        document.getElementById('chatgpt-text').textContent = data.chatgpt;
-        document.getElementById('claude-text').textContent = data.claude;
-        responseDiv.classList.remove('hidden');
-
+        // Display the response
+        if (data && typeof data === 'object') {
+            responseDiv.innerText = JSON.stringify(data, null, 2);
+        } else {
+            responseDiv.innerText = 'Invalid response format';
+        }
+            
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Detailed error:', error); // Enhanced error logging
         errorDiv.innerText = `An error occurred: ${error.message}`;
         errorDiv.classList.remove('hidden');
     } finally {
+        // Reset loading state
         submitBtn.disabled = false;
         loadingSpinner.classList.add('hidden');
     }
 });
 
-// Copy functions
-function copyText(text) {
-    navigator.clipboard.writeText(text);
-}
-
-function showCopiedFeedback(button) {
-    const originalText = button.textContent;
-    button.textContent = 'Copied!';
-    button.classList.add('copied');
-    setTimeout(() => {
-        button.textContent = originalText;
-        button.classList.remove('copied');
-    }, 2000);
-}
-
-document.getElementById('copyHeadlines').addEventListener('click', () => {
-    const chatgptText = document.getElementById('chatgpt-text').textContent;
-    const claudeText = document.getElementById('claude-text').textContent;
-    const headlinesOnly = `${chatgptText}\n${claudeText}`;
-    copyText(headlinesOnly);
-    showCopiedFeedback(document.getElementById('copyHeadlines'));
-});
-
-document.getElementById('copyAll').addEventListener('click', () => {
-    const chatgptText = document.getElementById('chatgpt-text').textContent;
-    const claudeText = document.getElementById('claude-text').textContent;
-    const fullResponse = `ChatGPT:\n${chatgptText}\n\nClaude:\n${claudeText}`;
-    copyText(fullResponse);
-    showCopiedFeedback(document.getElementById('copyAll'));
+// Add DOMContentLoaded check
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('apiForm');
+    console.log('Form element:', form); // Debug log
 });
