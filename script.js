@@ -2,7 +2,7 @@ document.getElementById('apiForm').addEventListener('submit', async function (e)
     e.preventDefault();
 
     // Get the form elements
-    const question = document.getElementById('question').value;
+    const product = document.getElementById('product').value;
     const submitBtn = document.getElementById('submitBtn');
     const loadingSpinner = document.querySelector('.loading-spinner');
     const errorDiv = document.getElementById('error');
@@ -24,7 +24,7 @@ document.getElementById('apiForm').addEventListener('submit', async function (e)
                 'Accept': 'application/json',
             },
             body: JSON.stringify({
-                question: question
+                product: product
             }),
             mode: 'cors'
         });
