@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>👨‍🦰 Google Ads Headlines Generator 👩</h1>
+        <h1>👨‍🦰 Google Ads Descriptions Generator 👩</h1>
         <form id="apiForm">
             <div class="form-group">
                 <label for="product">What product or service do you want to advertise?</label>
@@ -26,16 +26,36 @@
             </div>
             <div class="form-actions">
                 <button type="submit" id="submitBtn">
-                    <span class="button-text">Generate Headlines</span>
+                    <span class="button-text">Generate Descriptions</span>
                     <span class="loading-spinner hidden"></span>
                 </button>
             </div>
         </form>
         
         <div class="response-container">
-            <div id="loading" class="hidden">Generating headlines...</div>
+            <div id="loading" class="hidden">Generating descriptions...</div>
             <div id="error" class="error hidden"></div>
-            <pre id="response"></pre>
+            
+            <div id="response" class="response-box hidden">
+                <div class="headline-section">
+                    <div class="headline-source">
+                        <h2>ChatGPT</h2>
+                        <div id="chatgpt-text" class="headline-text"></div>
+                    </div>
+                    <div class="headline-source">
+                        <h2>Claude</h2>
+                        <div id="claude-text" class="headline-text"></div>
+                    </div>
+                </div>
+                <div class="copy-buttons">
+                    <button id="copyHeadlines" class="copy-btn">
+                        Copy Headlines Only
+                    </button>
+                    <button id="copyAll" class="copy-btn">
+                        Copy Full Response
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
     
