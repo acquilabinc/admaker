@@ -21,10 +21,10 @@ document.getElementById('apiForm').addEventListener('submit', async function (e)
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                'Accept': 'application/json',
             },
             body: JSON.stringify({
-                product: product
+                product: product  // Match the parameter name with server expectation
             })
         });
 
@@ -35,11 +35,10 @@ document.getElementById('apiForm').addEventListener('submit', async function (e)
         const data = await response.json();
         
         // Display the response
-        if (data && typeof data === 'object') {
-            responseDiv.innerText = JSON.stringify(data, null, 2);
-        } else {
-            responseDiv.innerText = 'Invalid response format';
-        }
+        responseDiv.innerText = typeof data === 'object' ? 
+            JSON.stringify(data, null, 2) : 
+            data.toString();
+            
     } catch (error) {
         console.error('Error:', error);
         errorDiv.innerText = `An error occurred: ${error.message}`;
