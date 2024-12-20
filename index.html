@@ -13,7 +13,7 @@
             --gradient-3: #9C27B0;
             --bg-dark: #0F1729;
             --text-light: #FFFFFF;
-            --border-color: #2A2A3A;
+            --card-bg: linear-gradient(135deg, #2B2F3B, #1F2330);
         }
 
         * {
@@ -24,34 +24,29 @@
         }
 
         body {
-            background: linear-gradient(135deg, var(--bg-dark), #1C2235);
+            background: var(--bg-dark);
             color: var(--text-light);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
         }
 
-        .container {
-            text-align: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .hero {
-            padding: 3rem 2rem;
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+        .card {
+            background: var(--card-bg);
             border-radius: 20px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            padding: 2rem;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            position: relative;
         }
 
         h1 {
             font-family: 'Syne', sans-serif;
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             font-weight: 700;
-            line-height: 1.2;
             color: var(--text-light);
             text-transform: uppercase;
             margin-bottom: 1rem;
@@ -60,58 +55,39 @@
         h1 span {
             display: block;
             font-family: 'Abril Fatface', cursive;
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             font-weight: 400;
             color: rgba(255, 255, 255, 0.8);
         }
 
         .widget-wrapper {
-            margin-top: 2rem;
-            background: rgba(15, 23, 41, 0.95);
+            background: rgba(15, 23, 41, 0.9);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 16px;
             padding: 20px;
-            max-width: 800px;
-            margin: 2rem auto;
+            margin-top: 1.5rem;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
         elevenlabs-convai {
             width: 100%;
-            height: 300px;
+            min-height: 200px;
             display: block;
         }
 
         .tagline {
-            font-size: 1.2rem;
+            font-size: 1rem;
             margin-top: 1.5rem;
             color: rgba(255, 255, 255, 0.8);
         }
 
-        .prompt {
-            margin-top: 0.5rem;
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.6);
+        .footer-note {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 1rem;
         }
 
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            h1 span {
-                font-size: 2rem;
-            }
-
-            .widget-wrapper {
-                padding: 15px;
-            }
-        }
-
-        @media (max-width: 480px) {
             h1 {
                 font-size: 2rem;
             }
@@ -121,21 +97,33 @@
             }
 
             .widget-wrapper {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            h1 span {
+                font-size: 1.3rem;
+            }
+
+            .widget-wrapper {
                 padding: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="hero">
-            <h1>Let's Craft<span>Your Perfect Journey</span></h1>
-            <div class="widget-wrapper">
-                <elevenlabs-convai agent-id="fPg1fEGh2XWuY0YpuJic"></elevenlabs-convai>
-            </div>
-            <p class="tagline">The fun way to create <span style="color: var(--gradient-1);">unforgettable itineraries</span> tailored just for you</p>
-            <p class="prompt">✨ Start with something like "Plan an amazing week in Bali" or "Create a magical Paris itinerary"</p>
+    <div class="card">
+        <h1>Let's Craft<span>Your Perfect Journey</span></h1>
+        <div class="widget-wrapper">
+            <elevenlabs-convai agent-id="fPg1fEGh2XWuY0YpuJic"></elevenlabs-convai>
         </div>
+        <p class="tagline">The fun way to create <span style="color: var(--gradient-1);">unforgettable itineraries</span> tailored just for you</p>
+        <p class="footer-note">Powered by ElevenLabs Conversational AI</p>
     </div>
 </body>
 </html>
