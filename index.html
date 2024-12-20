@@ -35,54 +35,27 @@
             left: 0;
             width: 100%;
             height: 100%;
+            background: 
+                radial-gradient(circle at 15% 15%, rgba(255, 27, 107, 0.2) 0%, transparent 35%),
+                radial-gradient(circle at 85% 85%, rgba(69, 202, 255, 0.2) 0%, transparent 35%),
+                radial-gradient(circle at 50% 50%, rgba(179, 71, 234, 0.2) 0%, transparent 35%);
+            filter: blur(80px);
             z-index: 0;
-        }
-
-        .background-gradient {
-            position: absolute;
-        }
-
-        .gradient-1 {
-            top: 0;
-            left: 0;
-            width: 33%;
-            height: 33%;
-            background: radial-gradient(circle, rgba(255, 27, 107, 0.2) 0%, transparent 70%);
-            filter: blur(50px);
-        }
-
-        .gradient-2 {
-            bottom: 0;
-            right: 0;
-            width: 33%;
-            height: 33%;
-            background: radial-gradient(circle, rgba(69, 202, 255, 0.2) 0%, transparent 70%);
-            filter: blur(50px);
-        }
-
-        .gradient-3 {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 50%;
-            height: 50%;
-            background: radial-gradient(circle, rgba(179, 71, 234, 0.2) 0%, transparent 70%);
-            filter: blur(50px);
         }
 
         .container {
             position: relative;
             z-index: 1;
+            display: grid;
+            grid-template-columns: 45% 55%;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
-        .header {
-            text-align: center;
-            padding: 4rem 2rem;
-            max-width: 1000px;
-            margin: 0 auto;
+        .content-left {
+            padding: 4rem 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
         }
 
         .title {
@@ -91,7 +64,6 @@
             font-weight: 700;
             line-height: 1.1;
             letter-spacing: 2px;
-            margin-bottom: 1.5rem;
             background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple), var(--neon-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -101,18 +73,10 @@
             font-size: clamp(1.25rem, 2vw, 1.5rem);
             line-height: 1.6;
             color: rgba(255, 255, 255, 0.9);
-        }
-
-        .split-content {
-            flex: 1;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            min-height: calc(100vh - 250px);
+            max-width: 500px;
         }
 
         .features {
-            padding: 2rem 4rem;
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
@@ -134,11 +98,9 @@
         }
 
         .feature h3 {
+            color: var(--neon-blue);
             font-size: 1.25rem;
             margin-bottom: 0.75rem;
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
         .feature p {
@@ -147,74 +109,76 @@
             line-height: 1.6;
         }
 
-        .chat-section {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(10px);
-            border-left: 1px solid rgba(255, 255, 255, 0.05);
+        .content-right {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .illustration {
+            flex: 1;
+            width: 100%;
+            height: calc(100% - 100px);
             position: relative;
             overflow: hidden;
         }
 
-        .chat-section::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, 
-                rgba(255, 27, 107, 0.1),
-                rgba(179, 71, 234, 0.1),
-                rgba(69, 202, 255, 0.1));
-            filter: blur(20px);
-            z-index: -1;
+        .illustration svg {
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+
+        .chat-container {
+            height: 100px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         @media (max-width: 1024px) {
-            .split-content {
+            .container {
                 grid-template-columns: 1fr;
             }
 
-            .features {
-                padding: 2rem;
-                max-width: 600px;
-                margin: 0 auto;
+            .content-left {
+                padding: 2rem 1.5rem;
             }
 
-            .chat-section {
-                min-height: 500px;
-                border-left: none;
-                border-top: 1px solid rgba(255, 255, 255, 0.05);
+            .illustration {
+                height: 300px;
+            }
+
+            .chat-container {
+                height: 80px;
             }
         }
 
         @media (max-width: 640px) {
-            .header {
-                padding: 2rem 1rem;
-            }
-
-            .features {
-                padding: 1rem;
+            .content-left {
+                padding: 1.5rem 1rem;
             }
 
             .feature {
                 padding: 1.25rem;
             }
+
+            .illustration {
+                height: 200px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="background">
-        <div class="background-gradient gradient-1"></div>
-        <div class="background-gradient gradient-2"></div>
-        <div class="background-gradient gradient-3"></div>
-    </div>
+    <div class="background"></div>
     
     <main class="container">
-        <header class="header">
+        <section class="content-left">
             <h1 class="title">TRIP GENIUS</h1>
             <p class="tagline">Your AI travel companion for crafting perfect itineraries. Just chat and watch your dream journey take shape.</p>
-        </header>
-
-        <div class="split-content">
-            <section class="features">
+            
+            <div class="features">
                 <div class="feature">
                     <h3>Voice Planning</h3>
                     <p>Simply tell me about your dream destination and preferences. I'll guide you through the planning process.</p>
@@ -227,12 +191,67 @@
                     <h3>Local Tips</h3>
                     <p>Discover hidden gems and authentic experiences recommended by locals and seasoned travelers.</p>
                 </div>
-            </section>
-            
-            <section class="chat-section">
+            </div>
+        </section>
+        
+        <section class="content-right">
+            <div class="illustration">
+                <svg viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Skyline background -->
+                    <path d="M0 300 Q 200 250, 400 300 T 800 300 V 600 H 0 Z" fill="url(#skyline-gradient)"/>
+                    
+                    <!-- Mountains -->
+                    <path d="M-100 600 L 300 200 L 700 600 Z" fill="url(#mountain-gradient-1)" opacity="0.7"/>
+                    <path d="M200 600 L 500 300 L 800 600 Z" fill="url(#mountain-gradient-2)" opacity="0.5"/>
+                    
+                    <!-- Hot air balloon -->
+                    <g transform="translate(400,200)">
+                        <path d="M-40 0 A 40 40 0 1 1 40 0 Q 40 40 0 60 Q -40 40 -40 0" fill="url(#balloon-gradient)"/>
+                        <rect x="-10" y="60" width="20" height="30" fill="#FF1B6B"/>
+                    </g>
+                    
+                    <!-- Floating islands -->
+                    <path d="M100 400 Q 150 380, 200 400 T 300 400 Q 300 450 200 450 Q 100 450 100 400" fill="url(#island-gradient-1)"/>
+                    <path d="M500 350 Q 550 330, 600 350 T 700 350 Q 700 400 600 400 Q 500 400 500 350" fill="url(#island-gradient-2)"/>
+                    
+                    <!-- Gradients -->
+                    <defs>
+                        <linearGradient id="skyline-gradient" x1="0" y1="300" x2="0" y2="600">
+                            <stop offset="0%" stop-color="#45CAFF" stop-opacity="0.2"/>
+                            <stop offset="100%" stop-color="#0A0A0F" stop-opacity="0"/>
+                        </linearGradient>
+                        
+                        <linearGradient id="mountain-gradient-1" x1="0" y1="200" x2="0" y2="600">
+                            <stop offset="0%" stop-color="#B347EA" stop-opacity="0.3"/>
+                            <stop offset="100%" stop-color="#FF1B6B" stop-opacity="0.1"/>
+                        </linearGradient>
+                        
+                        <linearGradient id="mountain-gradient-2" x1="0" y1="300" x2="0" y2="600">
+                            <stop offset="0%" stop-color="#45CAFF" stop-opacity="0.3"/>
+                            <stop offset="100%" stop-color="#B347EA" stop-opacity="0.1"/>
+                        </linearGradient>
+                        
+                        <linearGradient id="balloon-gradient">
+                            <stop offset="0%" stop-color="#FF1B6B"/>
+                            <stop offset="100%" stop-color="#B347EA"/>
+                        </linearGradient>
+                        
+                        <linearGradient id="island-gradient-1">
+                            <stop offset="0%" stop-color="#45CAFF" stop-opacity="0.3"/>
+                            <stop offset="100%" stop-color="#B347EA" stop-opacity="0.1"/>
+                        </linearGradient>
+                        
+                        <linearGradient id="island-gradient-2">
+                            <stop offset="0%" stop-color="#B347EA" stop-opacity="0.3"/>
+                            <stop offset="100%" stop-color="#FF1B6B" stop-opacity="0.1"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <div class="chat-container">
                 <elevenlabs-convai agent-id="fPg1fEGh2XWuY0YpuJic"></elevenlabs-convai>
-            </section>
-        </div>
+            </div>
+        </section>
     </main>
 </body>
 </html>
