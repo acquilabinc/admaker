@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+    <!-- Background -->
+    <rect width="1200" height="630" fill="#0A0A0F"/>
+    
+    <!-- Background Gradients -->
+    <circle cx="300" cy="200" r="400" fill="url(#pink-gradient)" opacity="0.2" filter="blur(60)"/>
+    <circle cx="900" cy="430" r="400" fill="url(#blue-gradient)" opacity="0.2" filter="blur(60)"/>
+    
+    <!-- Logo and Text Container -->
+    <g transform="translate(100, 180)">
+        <!-- Title -->
+        <text x="0" y="0" font-family="Syncopate, sans-serif" font-size="80" font-weight="700" fill="url(#text-gradient)">
+            TRIP GENIUS
+        </text>
+        
+        <!-- Tagline -->
+        <text x="0" y="80" font-family="Space Grotesk, sans-serif" font-size="36" fill="#FFFFFF" opacity="0.9">
+            Your AI travel companion for perfect itineraries
+        </text>
+        
+        <!-- Decorative Elements -->
+        <path d="M0 120 L900 120" stroke="url(#line-gradient)" stroke-width="2" opacity="0.3"/>
+        
+        <!-- Feature Icons -->
+        <g transform="translate(0, 180)">
+            <circle cx="40" cy="40" r="30" fill="url(#icon-gradient-1)"/>
+            <circle cx="140" cy="40" r="30" fill="url(#icon-gradient-2)"/>
+            <circle cx="240" cy="40" r="30" fill="url(#icon-gradient-3)"/>
+        </g>
+    </g>
+    
+    <!-- Gradients -->
+    <defs>
+        <linearGradient id="pink-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FF1B6B"/>
+            <stop offset="100%" stop-color="#FF1B6B" stop-opacity="0"/>
+        </linearGradient>
+        
+        <linearGradient id="blue-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#45CAFF"/>
+            <stop offset="100%" stop-color="#45CAFF" stop-opacity="0"/>
+        </linearGradient>
+        
+        <linearGradient id="text-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#FF1B6B"/>
+            <stop offset="50%" stop-color="#B347EA"/>
+            <stop offset="100%" stop-color="#45CAFF"/>
+        </linearGradient>
+        
+        <linearGradient id="line-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#FF1B6B"/>
+            <stop offset="100%" stop-color="#45CAFF"/>
+        </linearGradient>
+        
+        <linearGradient id="icon-gradient-1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FF1B6B"/>
+            <stop offset="100%" stop-color="#B347EA"/>
+        </linearGradient>
+        
+        <linearGradient id="icon-gradient-2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#B347EA"/>
+            <stop offset="100%" stop-color="#45CAFF"/>
+        </linearGradient>
+        
+        <linearGradient id="icon-gradient-3" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#45CAFF"/>
+            <stop offset="100%" stop-color="#FF1B6B"/>
+        </linearGradient>
+    </defs>
+</svg>
