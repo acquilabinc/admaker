@@ -3,42 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Generate creative Google Ads headlines using AI">
-    <title>👨‍🦰 Google Ads Headlines Generator 👩</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>AI Travel Assistant</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>👨‍🦰 Google Ads Headlines Generator 👩</h1>
-        <form id="apiForm">
-            <div class="form-group">
-                <label for="product">What product or service do you want to advertise?</label>
-                <input 
-                    type="text" 
-                    id="product" 
-                    name="product" 
-                    required
-                    placeholder="e.g., Online yoga classes, Coffee subscription, Web design services"
-                    minlength="3"
-                    maxlength="200"
-                >
+        <header>
+            <h1>Plan Your Perfect Trip</h1>
+            <p>Chat with your AI Travel Assistant to create personalized itineraries effortlessly.</p>
+        </header>
+        <main>
+            <div class="ai-widget">
+                <elevenlabs-convai agent-id="fPg1fEGh2XWuY0YpuJic"></elevenlabs-convai>
+                <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
             </div>
-            <div class="form-actions">
-                <button type="submit" id="submitBtn">
-                    <span class="button-text">Generate Headlines</span>
-                    <span class="loading-spinner hidden"></span>
-                </button>
-            </div>
-        </form>
-        
-        <div class="response-container">
-            <div id="loading" class="hidden">Generating headlines...</div>
-            <div id="error" class="error hidden"></div>
-            <pre id="response"></pre>
-        </div>
+        </main>
+        <footer>
+            <p>&copy; 2024 AI Travel Assistant. All rights reserved.</p>
+        </footer>
     </div>
-    
-    <script src="script.js"></script>
 </body>
 </html>
