@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="16" height="16"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+    <!-- Simplified monochrome version for Safari pinned tabs -->
+    <path d="M3 3h10v2H9v7H7V5H3V3z M8 7h5v2h-3v3H8V7z" fill="#000000"></path>
+</svg><style>@media (prefers-color-scheme: light) { :root { filter: none; } }
+@media (prefers-color-scheme: dark) { :root { filter: none; } }
+</style></svg>
