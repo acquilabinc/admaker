@@ -105,16 +105,20 @@
             border-radius: 20px;
             border: 1px solid var(--border-color);
             backdrop-filter: blur(10px);
-            overflow: hidden;
+            overflow: visible;
             transition: all 0.3s ease;
             position: relative;
             z-index: 10;
+            min-height: 200px;
+            width: 100%;
         }
 
         .chat-container elevenlabs-convai {
             display: block;
             width: 100%;
-            min-height: 100px;
+            min-height: 200px;
+            position: relative;
+            z-index: 11;
         }
 
         .tagline {
@@ -198,6 +202,7 @@
             <section class="chat-section">
                 <div class="chat-container">
                     <elevenlabs-convai agent-id="fPg1fEGh2XWuY0YpuJic"></elevenlabs-convai>
+                    <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
                 </div>
             </section>
 
