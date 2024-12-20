@@ -3,24 +3,246 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Travel Assistant</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>TravelAI Chat</title>
+    <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Abril+Fatface&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gradient-1: #FF1B6B;
+            --gradient-2: #45CAFF;
+            --gradient-3: #B347EA;
+            --gradient-4: #FFA626;
+            --gradient-5: #4EFF91;
+            --bg-dark: #0A0A0F;
+            --text-light: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        body {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .gradient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100vh;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(255, 27, 107, 0.3) 0%, transparent 40%),
+                radial-gradient(circle at 90% 40%, rgba(69, 202, 255, 0.3) 0%, transparent 40%),
+                radial-gradient(circle at 50% 70%, rgba(179, 71, 234, 0.3) 0%, transparent 40%),
+                radial-gradient(circle at 30% 90%, rgba(255, 166, 38, 0.3) 0%, transparent 40%),
+                radial-gradient(circle at 70% 10%, rgba(78, 255, 145, 0.3) 0%, transparent 40%);
+            z-index: 0;
+            animation: gradientMove 20s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, 
+                var(--gradient-1),
+                var(--gradient-2),
+                var(--gradient-3),
+                var(--gradient-4),
+                var(--gradient-5));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleFloat 3s ease-in-out infinite;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+
+        h1 span {
+            display: block;
+            font-family: 'Abril Fatface', cursive;
+            font-size: 5rem;
+            font-weight: normal;
+            text-transform: none;
+            letter-spacing: -2px;
+            margin-top: -0.5rem;
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .tagline {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.9;
+            max-width: 500px;
+            margin: 0 auto;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .tagline strong {
+            font-weight: 500;
+            color: var(--gradient-2);
+        }
+
+        .chat-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chat-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.05),
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .prompt {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .floating-elements {
+            position: fixed;
+            pointer-events: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: linear-gradient(135deg, 
+                var(--gradient-1),
+                var(--gradient-2),
+                var(--gradient-3));
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.1;
+            animation: float 10s infinite;
+        }
+
+        .element-1 {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .element-2 {
+            width: 200px;
+            height: 200px;
+            bottom: 20%;
+            right: 15%;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(50px, 50px); }
+            50% { transform: translate(0, 100px); }
+            75% { transform: translate(-50px, 50px); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .chat-container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="gradient-bg"></div>
+    <div class="floating-elements">
+        <div class="floating-element element-1"></div>
+        <div class="floating-element element-2"></div>
+    </div>
+    
     <div class="container">
         <header>
-            <h1>🌍 Plan Your Dream Trip</h1>
-            <p>Your journey starts here! Chat with your AI assistant to create personalized travel plans.</p>
+            <h1>EXPLORE<span>with AI</span></h1>
+            <p class="tagline">Your <strong>dream journey</strong> begins with a conversation</p>
         </header>
-        <main>
-            <div class="ai-widget">
-                <elevenlabs-convai agent-id="fPg1fEGh2XWuY0YpuJic"></elevenlabs-convai>
-                <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
-            </div>
-        </main>
-        <footer>
-            <p>&copy; 2024 AI Travel Assistant | Crafted with ❤️ for explorers.</p>
-        </footer>
+
+        <div class="chat-container">
+            <elevenlabs-convai agent-id="fPg1fEGh2XWuY0YpuJic"></elevenlabs-convai>
+        </div>
+
+        <p class="prompt">✨ Try saying "Plan me a weekend in Paris" or "What's the best time to visit Japan?"</p>
     </div>
 </body>
 </html>
