@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TravelAI Chat</title>
+    <title>Plan Your Perfect Trip</title>
     <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Abril+Fatface&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Abril+Fatface&display=swap" rel="stylesheet">
     <style>
         :root {
-            --gradient-1: #FF3366;
-            --gradient-2: #00BCD4;
-            --gradient-3: #9C27B0;
-            --bg-dark: #0F1729;
-            --card-bg: linear-gradient(135deg, #1C2235, #2B2F3B);
-            --text-light: #FFFFFF;
+            --gradient-start: #FF7E79;
+            --gradient-end: #FFD479;
+            --bg-light: #F9FAFB;
+            --text-dark: #1F2937;
+            --text-light: #4B5563;
+            --shadow-color: rgba(0, 0, 0, 0.1);
         }
 
         * {
@@ -24,135 +24,94 @@
         }
 
         body {
-            background: var(--bg-dark);
-            color: var(--text-light);
-            min-height: 100vh;
+            background: var(--bg-light);
+            color: var(--text-dark);
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
             padding: 2rem;
         }
 
-        .card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
-            padding: 2rem;
+        .hero {
             text-align: center;
-            width: 100%;
+            padding: 2rem;
             max-width: 800px;
+            width: 100%;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: var(--text-dark);
+            border-radius: 20px;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            margin-bottom: 2rem;
         }
 
-        h1 {
-            font-family: 'Syne', sans-serif;
+        .hero h1 {
+            font-family: 'Abril Fatface', cursive;
             font-size: 2.5rem;
             margin-bottom: 1rem;
+            color: #FFFFFF;
         }
 
-        h1 span {
-            display: block;
-            font-family: 'Abril Fatface', cursive;
-            font-size: 1.8rem;
-            margin-top: 0.5rem;
-            color: rgba(255, 255, 255, 0.8);
+        .hero p {
+            font-size: 1.1rem;
+            color: #FFFFFF;
+            margin-bottom: 2rem;
         }
 
-        .description {
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .widget-wrapper {
-            background: rgba(15, 23, 41, 0.95);
-            border-radius: 12px;
+        .widget-section {
+            width: 100%;
+            max-width: 800px;
+            background: #FFFFFF;
+            border-radius: 16px;
             padding: 1.5rem;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-            margin: 1.5rem auto;
+            box-shadow: 0 4px 12px var(--shadow-color);
         }
 
         elevenlabs-convai {
             display: block;
             width: 100%;
             min-height: 300px;
-            border-radius: 8px;
-            overflow: hidden;
+            border-radius: 12px;
         }
 
-        .action {
+        .footer {
             margin-top: 2rem;
             text-align: center;
-        }
-
-        .action button {
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-            border: none;
             color: var(--text-light);
-            padding: 0.8rem 1.5rem;
-            font-size: 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .action button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
-        }
-
-        .footer-note {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.5);
-            margin-top: 1.5rem;
+            font-size: 0.9rem;
         }
 
         @media (max-width: 768px) {
-            h1 {
+            .hero h1 {
                 font-size: 2rem;
             }
 
-            h1 span {
-                font-size: 1.5rem;
+            .hero p {
+                font-size: 1rem;
             }
 
-            .widget-wrapper {
-                padding: 15px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.8rem;
-            }
-
-            h1 span {
-                font-size: 1.3rem;
-            }
-
-            .widget-wrapper {
-                padding: 10px;
+            .widget-section {
+                padding: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>Let's Craft<span>Your Perfect Journey</span></h1>
-        <p class="description">The fun way to create <span style="color: var(--gradient-1);">unforgettable itineraries</span> tailored just for you.</p>
-        
-        <!-- Fully Inline Widget -->
-        <div class="widget-wrapper">
-            <elevenlabs-convai agent-id="fPg1fEGh2XWuY0YpuJic"></elevenlabs-convai>
-        </div>
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Plan Your Perfect Trip</h1>
+        <p>Discover an easy and fun way to craft your dream itinerary tailored just for you.</p>
+    </div>
 
-        <!-- Call to Action -->
-        <div class="action">
-            <button>Start Planning Now</button>
-        </div>
+    <!-- Widget Section -->
+    <div class="widget-section">
+        <elevenlabs-convai agent-id="fPg1fEGh2XWuY0YpuJic"></elevenlabs-convai>
+    </div>
 
-        <!-- Footer Note -->
-        <p class="footer-note">Powered by ElevenLabs Conversational AI</p>
+    <!-- Footer -->
+    <div class="footer">
+        Powered by ElevenLabs Conversational AI
     </div>
 </body>
 </html>
