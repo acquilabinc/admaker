@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plan Your Perfect Trip</title>
+    <title>AI Travel Planner</title>
     <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Abril+Fatface&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syncopate:wght@400;700&family=Gruppo&family=Righteous&display=swap" rel="stylesheet">
     <style>
         :root {
-            --gradient-start: #FF7E79;
-            --gradient-end: #FFD479;
-            --bg-light: #F9FAFB;
-            --text-dark: #1F2937;
-            --text-light: #4B5563;
-            --shadow-color: rgba(0, 0, 0, 0.1);
+            --neon-pink: #FF1B6B;
+            --neon-blue: #45CAFF;
+            --neon-purple: #B347EA;
+            --neon-orange: #FF8E3C;
+            --neon-green: #4EFF91;
+            --neon-yellow: #FFD93D;
+            --bg-dark: #0A0A0F;
+            --text-light: #FFFFFF;
         }
 
         * {
@@ -24,94 +26,242 @@
         }
 
         body {
-            background: var(--bg-light);
-            color: var(--text-dark);
+            background: var(--bg-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 15% 10%, rgba(255, 27, 107, 0.2) 0%, transparent 35%),
+                radial-gradient(circle at 85% 15%, rgba(69, 202, 255, 0.2) 0%, transparent 35%),
+                radial-gradient(circle at 50% 30%, rgba(179, 71, 234, 0.2) 0%, transparent 35%),
+                radial-gradient(circle at 75% 45%, rgba(255, 142, 60, 0.2) 0%, transparent 35%),
+                radial-gradient(circle at 25% 60%, rgba(78, 255, 145, 0.2) 0%, transparent 35%),
+                radial-gradient(circle at 85% 75%, rgba(255, 217, 61, 0.2) 0%, transparent 35%),
+                radial-gradient(circle at 50% 90%, rgba(255, 27, 107, 0.2) 0%, transparent 35%);
+            filter: blur(60px);
+            z-index: 0;
+            animation: gradientShift 20s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
             display: flex;
             flex-direction: column;
+            gap: 3rem;
             align-items: center;
-            justify-content: flex-start;
-            min-height: 100vh;
-            padding: 2rem;
         }
 
         .hero {
             text-align: center;
-            padding: 2rem;
             max-width: 800px;
-            width: 100%;
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-            color: var(--text-dark);
-            border-radius: 20px;
-            box-shadow: 0 4px 12px var(--shadow-color);
-            margin-bottom: 2rem;
         }
 
-        .hero h1 {
-            font-family: 'Abril Fatface', cursive;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #FFFFFF;
+        h1 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, 
+                var(--neon-pink),
+                var(--neon-blue),
+                var(--neon-purple),
+                var(--neon-orange),
+                var(--neon-green),
+                var(--neon-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(255, 27, 107, 0.3));
+            animation: gradientFlow 8s linear infinite;
+            background-size: 400% 400%;
         }
 
-        .hero p {
-            font-size: 1.1rem;
-            color: #FFFFFF;
-            margin-bottom: 2rem;
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .tagline {
+            font-family: 'Gruppo', sans-serif;
+            font-size: 1.4rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.95);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(69, 202, 255, 0.3);
         }
 
         .widget-section {
             width: 100%;
             max-width: 800px;
-            background: #FFFFFF;
-            border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 12px var(--shadow-color);
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 24px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 
+                0 0 40px rgba(255, 27, 107, 0.1),
+                0 0 40px rgba(69, 202, 255, 0.1),
+                0 0 40px rgba(179, 71, 234, 0.1);
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+        }
+
+        .widget-section:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 0 60px rgba(255, 27, 107, 0.15),
+                0 0 60px rgba(69, 202, 255, 0.15),
+                0 0 60px rgba(179, 71, 234, 0.15);
+            transform: translateY(-5px);
         }
 
         elevenlabs-convai {
             display: block;
             width: 100%;
-            min-height: 300px;
-            border-radius: 12px;
+            min-height: 200px;
+            border-radius: 16px;
+            overflow: hidden;
         }
 
-        .footer {
-            margin-top: 2rem;
+        .info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .info-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
             text-align: center;
-            color: var(--text-light);
+            flex: 1;
+            min-width: 200px;
+            max-width: 300px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(69, 202, 255, 0.1);
+        }
+
+        .info-item h3 {
+            font-family: 'Righteous', cursive;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: 400;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .info-item p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            font-family: 'Gruppo', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        .prompt {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
             font-size: 0.9rem;
+            margin-top: 2rem;
+            line-height: 1.6;
         }
 
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
+            .container {
+                padding: 2rem 1rem;
             }
 
-            .hero p {
-                font-size: 1rem;
+            h1 {
+                font-size: 3rem;
+            }
+
+            .tagline {
+                font-size: 1.1rem;
+                padding: 0 1rem;
             }
 
             .widget-section {
                 padding: 1rem;
+                border-radius: 20px;
+            }
+
+            .info {
+                gap: 1rem;
+            }
+
+            .info-item {
+                min-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Hero Section -->
-    <div class="hero">
-        <h1>Plan Your Perfect Trip</h1>
-        <p>Discover an easy and fun way to craft your dream itinerary tailored just for you.</p>
-    </div>
+    <div class="background"></div>
+    
+    <main class="container">
+        <div class="hero">
+            <h1>Trip Genius</h1>
+            <p class="tagline">Your AI travel companion for crafting perfect itineraries. Just chat and watch your dream journey take shape.</p>
+        </div>
 
-    <!-- Widget Section -->
-    <div class="widget-section">
-        <elevenlabs-convai agent-id="fPg1fEGh2XWuY0YpuJic"></elevenlabs-convai>
-    </div>
+        <section class="widget-section">
+            <elevenlabs-convai agent-id="fPg1fEGh2XWuY0YpuJic"></elevenlabs-convai>
+        </section>
 
-    <!-- Footer -->
-    <div class="footer">
-        Powered by ElevenLabs Conversational AI
-    </div>
+        <div class="info">
+            <div class="info-item">
+                <h3>Voice Planning</h3>
+                <p>Simply talk about your dream destination and preferences</p>
+            </div>
+            <div class="info-item">
+                <h3>Smart Itineraries</h3>
+                <p>Get personalized day-by-day plans instantly</p>
+            </div>
+            <div class="info-item">
+                <h3>Local Tips</h3>
+                <p>Discover hidden gems and authentic experiences</p>
+            </div>
+        </div>
+
+        <p class="prompt">✨ Try "Plan me a vibrant weekend in Tokyo" or "Create a relaxing beach getaway in Bali"</p>
+    </main>
 </body>
 </html>
