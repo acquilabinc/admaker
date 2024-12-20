@@ -10,6 +10,7 @@
         :root {
             --gradient-1: #FF3366;
             --gradient-2: #00BCD4;
+            --gradient-3: #9C27B0;
             --bg-dark: #0F1729;
             --card-bg: linear-gradient(135deg, #1C2235, #2B2F3B);
             --text-light: #FFFFFF;
@@ -58,7 +59,7 @@
 
         .description {
             font-size: 1rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             color: rgba(255, 255, 255, 0.8);
         }
 
@@ -67,18 +68,20 @@
             border-radius: 12px;
             padding: 1.5rem;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            margin: 1.5rem auto;
         }
 
         elevenlabs-convai {
             display: block;
             width: 100%;
             min-height: 300px;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         .action {
             margin-top: 2rem;
-            display: flex;
-            justify-content: center;
+            text-align: center;
         }
 
         .action button {
@@ -103,6 +106,34 @@
             color: rgba(255, 255, 255, 0.5);
             margin-top: 1.5rem;
         }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            h1 span {
+                font-size: 1.5rem;
+            }
+
+            .widget-wrapper {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            h1 span {
+                font-size: 1.3rem;
+            }
+
+            .widget-wrapper {
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -110,14 +141,14 @@
         <h1>Let's Craft<span>Your Perfect Journey</span></h1>
         <p class="description">The fun way to create <span style="color: var(--gradient-1);">unforgettable itineraries</span> tailored just for you.</p>
         
-        <!-- Widget Container -->
+        <!-- Fully Inline Widget -->
         <div class="widget-wrapper">
             <elevenlabs-convai agent-id="fPg1fEGh2XWuY0YpuJic"></elevenlabs-convai>
         </div>
 
-        <!-- Call to Action Button -->
+        <!-- Call to Action -->
         <div class="action">
-            <button>Plan & Book Your Next Trip</button>
+            <button>Start Planning Now</button>
         </div>
 
         <!-- Footer Note -->
