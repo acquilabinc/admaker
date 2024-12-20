@@ -76,24 +76,13 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            padding: 3rem 1.5rem;
         }
 
-        .content-wrapper {
-            flex: 1;
-            max-width: 1440px;
+        .header {
+            text-align: center;
+            padding: 4rem 2rem;
+            max-width: 1000px;
             margin: 0 auto;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            padding: 2rem 0;
-        }
-
-        .content-left {
-            flex: 1;
-            max-width: 700px;
-            padding-right: 3rem;
         }
 
         .title {
@@ -112,10 +101,18 @@
             font-size: clamp(1.25rem, 2vw, 1.5rem);
             line-height: 1.6;
             color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 3rem;
+        }
+
+        .split-content {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            min-height: calc(100vh - 250px);
         }
 
         .features {
+            padding: 2rem 4rem;
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
@@ -150,25 +147,15 @@
             line-height: 1.6;
         }
 
-        .content-right {
-            flex: 1;
-            max-width: 600px;
-            height: 600px;
-            position: relative;
-        }
-
-        .chat-container {
-            position: relative;
-            height: 100%;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        .chat-section {
+            background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(10px);
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
             overflow: hidden;
         }
 
-        .chat-container::before {
+        .chat-section::before {
             content: '';
             position: absolute;
             inset: 0;
@@ -181,44 +168,30 @@
         }
 
         @media (max-width: 1024px) {
-            .content-wrapper {
-                flex-direction: column;
-                align-items: stretch;
-                padding: 1rem;
-            }
-
-            .content-left {
-                padding-right: 0;
-                max-width: 100%;
-            }
-
-            .content-right {
-                max-width: 100%;
-                height: 500px;
-            }
-
-            .title {
-                text-align: center;
-            }
-
-            .tagline {
-                text-align: center;
-                margin-bottom: 2rem;
+            .split-content {
+                grid-template-columns: 1fr;
             }
 
             .features {
+                padding: 2rem;
                 max-width: 600px;
                 margin: 0 auto;
+            }
+
+            .chat-section {
+                min-height: 500px;
+                border-left: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.05);
             }
         }
 
         @media (max-width: 640px) {
-            .container {
-                padding: 1.5rem 1rem;
+            .header {
+                padding: 2rem 1rem;
             }
 
-            .content-right {
-                height: 400px;
+            .features {
+                padding: 1rem;
             }
 
             .feature {
@@ -235,31 +208,29 @@
     </div>
     
     <main class="container">
-        <div class="content-wrapper">
-            <section class="content-left">
-                <h1 class="title">TRIP GENIUS</h1>
-                <p class="tagline">Your AI travel companion for crafting perfect itineraries. Just chat and watch your dream journey take shape.</p>
-                
-                <div class="features">
-                    <div class="feature">
-                        <h3>Voice Planning</h3>
-                        <p>Simply tell me about your dream destination and preferences. I'll guide you through the planning process.</p>
-                    </div>
-                    <div class="feature">
-                        <h3>Smart Itineraries</h3>
-                        <p>Get personalized day-by-day plans instantly, tailored to your interests and travel style.</p>
-                    </div>
-                    <div class="feature">
-                        <h3>Local Tips</h3>
-                        <p>Discover hidden gems and authentic experiences recommended by locals and seasoned travelers.</p>
-                    </div>
+        <header class="header">
+            <h1 class="title">TRIP GENIUS</h1>
+            <p class="tagline">Your AI travel companion for crafting perfect itineraries. Just chat and watch your dream journey take shape.</p>
+        </header>
+
+        <div class="split-content">
+            <section class="features">
+                <div class="feature">
+                    <h3>Voice Planning</h3>
+                    <p>Simply tell me about your dream destination and preferences. I'll guide you through the planning process.</p>
+                </div>
+                <div class="feature">
+                    <h3>Smart Itineraries</h3>
+                    <p>Get personalized day-by-day plans instantly, tailored to your interests and travel style.</p>
+                </div>
+                <div class="feature">
+                    <h3>Local Tips</h3>
+                    <p>Discover hidden gems and authentic experiences recommended by locals and seasoned travelers.</p>
                 </div>
             </section>
             
-            <section class="content-right">
-                <div class="chat-container">
-                    <elevenlabs-convai agent-id="fPg1fEGh2XWuY0YpuJic"></elevenlabs-convai>
-                </div>
+            <section class="chat-section">
+                <elevenlabs-convai agent-id="fPg1fEGh2XWuY0YpuJic"></elevenlabs-convai>
             </section>
         </div>
     </main>
