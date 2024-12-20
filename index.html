@@ -149,12 +149,42 @@
             z-index: 1;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
-            flex-grow: 1;
+            padding: 4rem 2rem;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-            padding-top: 4rem;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .chat-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .tagline {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.9;
+            text-align: center;
+            text-transform: uppercase;
+            margin-top: 3rem;
+        }
+
+        .prompt {
+            margin-top: 1rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
         }
 
         @keyframes shine {
@@ -236,17 +266,18 @@
         <div class="floating-element element-2"></div>
     </div>
     
-    <div class="container">
+    <main class="container">
         <header>
             <h1>EXPLORE<span>with AI</span></h1>
-            <p class="tagline">Your <strong>dream journey</strong> begins with a conversation</p>
         </header>
 
-        <div class="chat-container">
-            <elevenlabs-convai agent-id="fPg1fEGh2XWuY0YpuJic"></elevenlabs-convai>
+        <div class="chat-section">
+            <div class="chat-container">
+                <elevenlabs-convai agent-id="fPg1fEGh2XWuY0YpuJic"></elevenlabs-convai>
+            </div>
+            <p class="tagline">Your <strong>dream journey</strong> begins with a conversation</p>
+            <p class="prompt">✨ Try saying "Plan me a weekend in Paris" or "What's the best time to visit Japan?"</p>
         </div>
-
-        <p class="prompt">✨ Try saying "Plan me a weekend in Paris" or "What's the best time to visit Japan?"</p>
-    </div>
+    </main>
 </body>
 </html>
