@@ -1,69 +1,48 @@
-document.getElementById('apiForm').addEventListener('submit', async function (e) {
-    e.preventDefault();
-    
-    // Get the form elements
-    const productInput = document.getElementById('product');
-    console.log('Product input element:', productInput); // Debug log
-    
-    const product = productInput?.value;
-    console.log('Product value:', product); // Debug log
-    
-    const submitBtn = document.getElementById('submitBtn');
-    const loadingSpinner = document.querySelector('.loading-spinner');
-    const errorDiv = document.getElementById('error');
-    const responseDiv = document.getElementById('response');
-    
-    // Clear previous responses and errors
-    errorDiv.classList.add('hidden');
-    responseDiv.innerText = '';
-    
-    // Show loading state
-    submitBtn.disabled = true;
-    loadingSpinner.classList.remove('hidden');
-    
-    try {
-        console.log('Making request with product:', product); // Debug log
-        
-        const response = await fetch('https://api.tenxplus.com/api/generate', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                product: product
-            })
-        });
+/* Global styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: linear-gradient(135deg, #56ccf2, #2f80ed);
+    color: #fff;
+}
 
-        console.log('Response status:', response.status); // Debug log
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
+/* Header */
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
 
-        const data = await response.json();
-        console.log('Response data:', data); // Debug log
-        
-        // Display the response
-        if (data && typeof data === 'object') {
-            responseDiv.innerText = JSON.stringify(data, null, 2);
-        } else {
-            responseDiv.innerText = 'Invalid response format';
-        }
-            
-    } catch (error) {
-        console.error('Detailed error:', error); // Enhanced error logging
-        errorDiv.innerText = `An error occurred: ${error.message}`;
-        errorDiv.classList.remove('hidden');
-    } finally {
-        // Reset loading state
-        submitBtn.disabled = false;
-        loadingSpinner.classList.add('hidden');
-    }
-});
+header p {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    color: #e4f1f9;
+}
 
-// Add DOMContentLoaded check
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('apiForm');
-    console.log('Form element:', form); // Debug log
-});
+/* AI Widget */
+.ai-widget {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    color: #333;
+}
+
+/* Footer */
+footer p {
+    font-size: 0.9rem;
+    margin-top: 40px;
+    color: #e4f1f9;
+}
