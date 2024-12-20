@@ -97,6 +97,7 @@
             max-width: 800px;
             margin: 0 auto;
             position: relative;
+            z-index: 10;
         }
 
         .chat-container {
@@ -106,6 +107,14 @@
             backdrop-filter: blur(10px);
             overflow: hidden;
             transition: all 0.3s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        .chat-container elevenlabs-convai {
+            display: block;
+            width: 100%;
+            min-height: 100px;
         }
 
         .tagline {
@@ -114,11 +123,14 @@
             max-width: 600px;
             margin: 0 auto;
             color: rgba(255, 255, 255, 0.9);
+            letter-spacing: 0.5px;
         }
 
         .dream-journey {
-            color: var(--gradient-2);
-            font-weight: 500;
+            background: linear-gradient(135deg, var(--gradient-2), var(--gradient-3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
         }
 
         .prompt {
@@ -180,7 +192,7 @@
     <div class="container">
         <div class="content-wrapper">
             <header>
-                <h1>DREAM IT<span>Plan it</span></h1>
+                <h1>LET'S CRAFT<span>Your Perfect Journey</span></h1>
             </header>
 
             <section class="chat-section">
@@ -191,9 +203,9 @@
 
             <footer>
                 <p class="tagline">
-                    Your <span class="dream-journey">dream journey</span> begins with a conversation
+                    The fun way to create <span class="dream-journey">unforgettable itineraries</span> tailored just for you
                 </p>
-                <p class="prompt">✨ Try saying "Plan me a weekend in Paris" or "What's the best time to visit Japan?"</p>
+                <p class="prompt">✨ Start with something like "Help me plan an amazing week in Bali" or "Create a magical Paris itinerary"</p>
             </footer>
         </div>
     </div>
