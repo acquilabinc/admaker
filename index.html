@@ -113,13 +113,12 @@
             position: relative;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
         }
 
         .illustration {
             flex: 1;
             width: 100%;
-            height: calc(100% - 100px);
+            height: 100%;
             position: relative;
             overflow: hidden;
         }
@@ -130,11 +129,12 @@
             opacity: 0.8;
         }
 
+        /* Remove the chat container styles as they interfere with the floating widget */
         .chat-container {
-            height: 100px;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
         }
 
         @media (max-width: 1024px) {
